@@ -1,0 +1,7 @@
+services:
+  mm2-bot:
+    build: .
+    container_name: mm2_telegram_bot
+    restart: always
+    volumes:
+      - ./items.json:/app/items.json
