@@ -125,13 +125,23 @@ cron.schedule('0 0 * * *', () => {
 
 // Главная функция запуска
 async function main() {
-  // Если файла с данными нет, создаем его при первом запуске
-  if (!fs.existsSync(DATA_FILE)) {
-    await updateValues();
-  }
+  console.log('--- СТАРТ ПРИЛОЖЕНИЯ ---');
 
-  bot.launch();
-  console.log('🚀 Бот запущен и готов к работе!');
+  try {
+    if (!fs.existsSync(DATA_FILE)) {
+      console.log('⚠️ Файл данных не найден. Запускаю первичный сбор...');
+      await updateValues();
+    } else {
+      console.log('✅ Файл данных найден, использую его.');
+    }
+
+    console.log('🤖 Попытка запуска Telegram бота...');
+    await bot.launch();
+    console.log('🚀 Бот успешно запущен и слушает команды!');
+
+  } catch (err) {
+    console.error('❌ КРИТИЧЕСКАЯ ОШИБКА ПРИ СТАРТЕ:', err);
+  }
 }
 
 main();
