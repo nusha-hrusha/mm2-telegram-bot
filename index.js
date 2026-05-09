@@ -43,7 +43,13 @@ bot.command('price', async (ctx) => {
     return ctx.reply('Напиши название оружия после /price. Например: `/price batwing`', { parse_mode: 'Markdown' });
   }
 
-  const data = getLocalData();
+  let data = getLocalData();
+
+  if (Object.keys(data).length === 0) {
+    await updateValues();
+    data = getLocalData();
+  }
+
   const item = data[query];
 
   if (item) {
