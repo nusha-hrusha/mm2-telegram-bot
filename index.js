@@ -45,11 +45,6 @@ bot.command('price', async (ctx) => {
 
   let data = getLocalData();
 
-  if (Object.keys(data).length === 0) {
-    await updateValues();
-    data = getLocalData();
-  }
-
   const item = data[query];
 
   if (item) {
@@ -133,6 +128,7 @@ async function main() {
       await updateValues();
     } else {
       console.log('✅ Файл данных найден, использую его.');
+      await updateValues();
     }
 
     console.log('🤖 Попытка запуска Telegram бота...');

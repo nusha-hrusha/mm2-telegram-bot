@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Устанавливаем библиотеки
-RUN npm install 
+RUN npm install --production
 
 # Копируем остальной код
 COPY . .
